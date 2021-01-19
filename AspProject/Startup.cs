@@ -36,6 +36,9 @@ namespace AspProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //в дальнейшем так и будем делать - но пока дл€ нагл€дности будем разбирать по част€м этот паттерн
+            //services.AddMvc(); 
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +49,9 @@ namespace AspProject
                 app.UseDeveloperExceptionPage();
             }
 
+            //дл€ подт€гивани€ файлов на хосте (css файлы, картинки и проч.)
+            app.UseStaticFiles();
+
             app.UseRouting();
 
 
@@ -53,10 +59,16 @@ namespace AspProject
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
+                //муршруты прописываютс€ сверху вниз от самых редких до самых общих
+                endpoints.MapGet("/greetings", async context =>
                 {
                     await context.Response.WriteAsync(Configuration["Greetings"]);
                 });
+                //проецируем маршруты на контроллеры
+                endpoints.MapControllerRoute(
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}"
+                    );
             });
         }
     }
