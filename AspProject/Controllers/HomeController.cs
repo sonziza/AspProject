@@ -8,10 +8,7 @@ namespace AspProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return Content("Home controller Action Index");
-        }
+        public IActionResult Index() => View();
         public IActionResult Test()
         {
             return Content("Test controller action...");
