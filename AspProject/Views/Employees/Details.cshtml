@@ -1,0 +1,23 @@
+﻿
+@model AspProject.Models.Employee
+
+@{
+    ViewData["Title"] = "Список сотрудников";
+}
+<h3>Сотрудник</h3>
+
+<hr />
+<table class="table table-bordered">
+
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.FirstName</td>
+        <td>@Model.LastName</td>
+        <td>@Model.Patronymic</td>
+        <td>@Model.Age</td>
+        <td>@Model.Post</td>
+    </tr>
+
+</table>
+
+<a asp-action="Index">К списку</a>

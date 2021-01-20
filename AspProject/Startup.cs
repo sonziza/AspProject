@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AspProject
 {
@@ -39,7 +35,8 @@ namespace AspProject
             //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
             //services.AddMvc(); 
             //прописали сервис для работы с контроллерами
-            services.AddControllersWithViews();
+            //AddRazorRuntimeCompillation - расширение RuntimeCompillation - для динамического изменения данных
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
