@@ -10,9 +10,6 @@ namespace AspProject.Controllers
     public class HomeController : Controller
     {
         public IActionResult Index() => View();
-        public IActionResult Test()
-        {
-            return Content("Test controller action...");
-        }
+        public IActionResult Blog() => View();
     }
 }
