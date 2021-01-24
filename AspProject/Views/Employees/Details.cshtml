@@ -2,22 +2,29 @@
 @model AspProject.Models.Employee
 
 @{
-    ViewData["Title"] = "Список сотрудников";
+    ViewData["Title"] = "Сотрудник";
 }
-<h3>Сотрудник</h3>
 
-<hr />
-<table class="table table-bordered">
 
-    <tr>
-        <td>@Model.Id</td>
-        <td>@Model.FirstName</td>
-        <td>@Model.LastName</td>
-        <td>@Model.Patronymic</td>
-        <td>@Model.Age</td>
-        <td>@Model.Post</td>
-    </tr>
+<div class="container">
+    <h3>Сотрудник</h3>
 
-</table>
+    <hr />
+    <table class="table table-bordered">
 
-<a>К списку</a>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.FirstName</td>
+            <td>@Model.LastName</td>
+            <td>@Model.Patronymic</td>
+            <td>@Model.Age</td>
+            <td>@Model.Post</td>
+        </tr>
+
+    </table>
+
+    <a>К списку</a>
+
+</div>
+
+
