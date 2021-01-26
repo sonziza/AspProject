@@ -8,7 +8,7 @@ namespace AspProject.Infrastructure.Interfaces
 {
     public interface IEmployeesData
     {
-        IEnumerable<Employee> Get();
+        IEnumerable<Employee> GetAll();
         Employee Get(int id);
         int Add(Employee employee);
         void Update(Employee employee);

@@ -33,7 +33,7 @@ namespace AspProject.Infrastructure.Services
             return _Employees.Remove(item);
         }
 
-        public IEnumerable<Employee> Get() => _Employees;
+        public IEnumerable<Employee> GetAll() => _Employees;
 
         public Employee Get(int id) => _Employees.FirstOrDefault(employee => employee.Id == id);
 
@@ -43,13 +43,13 @@ namespace AspProject.Infrastructure.Services
 
             if (_Employees.Contains(employee)) return;
 
-            var db_item = Get(employee.Id);
-            if (db_item is null) return;
+            var db_set = Get(employee.Id);
+            if (db_set is null) return;
 
-            db_item.LastName = employee.LastName;
-            db_item.FirstName = employee.FirstName;
-            db_item.Patronymic = employee.Patronymic;
-            db_item.Age = employee.Age;
+            db_set.LastName = employee.LastName;
+            db_set.FirstName = employee.FirstName;
+            db_set.Patronymic = employee.Patronymic;
+            db_set.Age = employee.Age;
         }
     }
 }
