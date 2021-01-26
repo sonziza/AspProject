@@ -1,4 +1,5 @@
 ﻿using AspProject.Data;
+using AspProject.Infrastructure.Interfaces;
 using AspProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,25 +11,23 @@ namespace AspProject.Controllers
 {
     public class EmployeesController : Controller
     {
-        private List<Employee> _Employees;
-        public EmployeesController()
+        private readonly IEmployeesData _EmployeesData;
+        public EmployeesController(IEmployeesData employeesData)
         {
-            _Employees = TestData.Employees;
+            _EmployeesData = employeesData;
         }
         public IActionResult Index()
         {
-            return View(_Employees);
+            return View(_EmployeesData.GetAll());
         }
-        public IActionResult Details(int Id)
+        public IActionResult Details(int id)
         {
-            foreach (Employee emp in _Employees)
-            {
-                if (emp.Id == Id)
+            var employee = _EmployeesData.Get(id);
+                if (employee is not null)
                 {
-                    return View(emp);
+                    return View(employee);
                 }
-            }
-            return View("Данные остутствуют");
+            return NotFound();
         }
     }
 }

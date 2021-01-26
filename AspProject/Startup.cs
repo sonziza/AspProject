@@ -1,3 +1,5 @@
+using AspProject.Infrastructure.Interfaces;
+using AspProject.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,11 +34,14 @@ namespace AspProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
             //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
             //services.AddMvc(); 
             //прописали сервис для работы с контроллерами
             //AddRazorRuntimeCompillation - расширение RuntimeCompillation - для динамического изменения данных
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services
+                .AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
