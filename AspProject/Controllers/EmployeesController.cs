@@ -30,6 +30,10 @@ namespace AspProject.Controllers
             }
             return NotFound();
         }
+        public IActionResult Create()
+        {
+            return View("Edit", new EmployeeViewModel());
+        }
         #region Edit
         public IActionResult Edit(int id)
         {
@@ -61,7 +65,11 @@ namespace AspProject.Controllers
                 Age = model.Age,
                 Post = model.Post
             };
-            _EmployeesData.Update(employee);
+
+            if (employee.Id == 0)
+                _EmployeesData.Add(employee);
+            else _EmployeesData.Update(employee);
+
             return RedirectToAction("Index");
         }
         #endregion
