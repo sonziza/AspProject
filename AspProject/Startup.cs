@@ -30,11 +30,12 @@ namespace AspProject
         }
         */
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
+            services.AddTransient<IProductData, InMemoryProductData>();
+            
+            
             //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
             //services.AddMvc(); 
             //прописали сервис для работы с контроллерами
