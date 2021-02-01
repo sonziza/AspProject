@@ -10,7 +10,7 @@ namespace AspProject.Infrastructure.Services
 {
     public class InMemoryProductData : IProductData
     {
-        public IEnumerable<Brand> GetBrands() => TestData.Brands
+        public IEnumerable<Brand> GetBrands() => TestData.Brands;
 
 
         public IEnumerable<Section> GetSections() => TestData.Sections;
