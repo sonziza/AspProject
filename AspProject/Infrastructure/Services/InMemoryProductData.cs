@@ -1,5 +1,6 @@
 ﻿using AspProject.Data;
 using AspProject.Infrastructure.Interfaces;
+using AspProjectDomain;
 using AspProjectDomain.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,18 @@ namespace AspProject.Infrastructure.Services
 
 
         public IEnumerable<Section> GetSections() => TestData.Sections;
+        public IEnumerable<Product> GetProducts(ProductFilter Filter)
+        {
+            var query = TestData.Products;
+            //ограничения на перечисления (по фильтру)
+            //Если что-то есть по фильтру, то производится отбор
+            if (Filter?.SectionId is { } section_id)
+                query = query.Where(product => product.SectionId == section_id);
+
+            if (Filter?.BrandId is { } brand_id)
+                query = query.Where(product => product.BrandId == brand_id);
+
+            return query;
+        }
     }
 }
