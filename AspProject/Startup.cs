@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AspProject
 {
@@ -36,6 +32,11 @@ namespace AspProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //в дальнейшем так и будем делать - но пока дл€ нагл€дности будем разбирать по част€м этот паттерн
+            //services.AddMvc(); 
+            //прописали сервис дл€ работы с контроллерами
+            //AddRazorRuntimeCompillation - расширение RuntimeCompillation - дл€ динамического изменени€ данных
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,14 +47,26 @@ namespace AspProject
                 app.UseDeveloperExceptionPage();
             }
 
+            //дл€ подт€гивани€ файлов на хосте (css файлы, картинки и проч.)
+            app.UseStaticFiles();
+
             app.UseRouting();
+
+
+            var greetings = Configuration["Greetings"];
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
+                //муршруты прописываютс€ сверху вниз от самых редких до самых общих
+                endpoints.MapGet("/greetings", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync(Configuration["Greetings"]);
                 });
+                //проецируем маршруты на контроллеры
+                endpoints.MapControllerRoute(
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}"
+                    );
             });
         }
     }
