@@ -1,5 +1,7 @@
 ﻿using AspProject.Data;
+using AspProject.Infrastructure.Interfaces;
 using AspProject.Models;
+using AspProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,25 +12,90 @@ namespace AspProject.Controllers
 {
     public class EmployeesController : Controller
     {
-        private List<Employee> _Employees;
-        public EmployeesController()
+        private readonly IEmployeesData _EmployeesData;
+        public EmployeesController(IEmployeesData employeesData)
         {
-            _Employees = TestData.Employees;
+            _EmployeesData = employeesData;
         }
         public IActionResult Index()
         {
-            return View(_Employees);
+            return View(_EmployeesData.GetAll());
         }
-        public IActionResult Details(int Id)
+        public IActionResult Details(int id)
         {
-            foreach (Employee emp in _Employees)
+            var employee = _EmployeesData.Get(id);
+            if (employee is not null)
             {
-                if (emp.Id == Id)
-                {
-                    return View(emp);
-                }
+                return View(employee);
             }
-            return View("Данные остутствуют");
+            return NotFound();
         }
+        public IActionResult Create()
+        {
+            return View("Edit", new EmployeeViewModel());
+        }
+        #region Edit
+        public IActionResult Edit(int id)
+        {
+            if (id <= 0) return BadRequest();
+            var employee = _EmployeesData.Get(id);
+            if (employee is null)
+                return NotFound();
+            return View(new EmployeeViewModel
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                Post = employee.Post
+            });
+        }
+        [HttpPost]
+        public IActionResult Edit(EmployeeViewModel model)
+        {
+            if (model is null) throw new ArgumentNullException(nameof(model));
+
+            var employee = new Employee
+            {
+                Id = model.Id,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Patronymic = model.Patronymic,
+                Age = model.Age,
+                Post = model.Post
+            };
+
+            if (employee.Id == 0)
+                _EmployeesData.Add(employee);
+            else _EmployeesData.Update(employee);
+
+            return RedirectToAction("Index");
+        }
+        #endregion
+        #region delete
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0) return BadRequest();
+            var employee = _EmployeesData.Get(id);
+            if (employee is null)
+                return NotFound();
+            return View(new EmployeeViewModel
+            {
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Patronymic = employee.Patronymic,
+                Age = employee.Age,
+                Post = employee.Post
+            });
+        }
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _EmployeesData.Delete(id);
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }

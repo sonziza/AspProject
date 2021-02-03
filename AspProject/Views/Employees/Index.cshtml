@@ -1,49 +1,46 @@
 ﻿
-@model IEnumerable<AspProject.Models.Employee>
+@model IEnumerable<Employee>
+@{ Layout = "_LayoutEmployees"; }
 
+<h3>Сотрудники</h3>
 
-@{
-    ViewData["Title"] = "Список сотрудников";
-}
-<!DOCTYPE html>
+<div>
+    <a asp-action="Create" class="btn btn-primary">Принять на работу...</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Id</td>
+                <td>@employee.FirstName</td>
+                <td>@employee.LastName</td>
+                <td>@employee.Patronymic</td>
+                <td>@employee.Age</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@employee.Id">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@employee.Id">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <form asp-action="DeleteConfirmed" asp-route-id="@employee.Id">
+                        <button type="submit">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Сотрудники</title>
-</head>
-<body>
-    <div class="container">
-        <h3>Сотрудники</h3>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Отчество</th>
-                    <th>Возраст</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var employee in Model)
-                {
-                    <tr>
-                        <td>@employee.Id</td>
-                        <td>@employee.FirstName</td>
-                        <td>@employee.LastName</td>
-                        <td>@employee.Patronymic</td>
-                        <td>@employee.Age</td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@employee.Id">
-                                <i class="fa fa-info-circle"></i>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
