@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title | E-Shoppper</title>
+
+    @*Html.PartialAsync("Partial/_Styles");*@
+    @*await Html.PartialAsync("Partial/_Styles")*@
+    <partial name="Partial/_Styles"/>
+
+    @RenderSectionAsync("Styles", false)
+</head><!--/head-->
+
+<body>
+    <partial name="Partial/_Header" />
+
+    @RenderBody()
+
+    <partial name="Partial/_Footer" />
+
+    <partial name="Partial/_Scripts" />
+
+
+    @RenderSectionAsync("Scripts", false)
+</body>
+</html>

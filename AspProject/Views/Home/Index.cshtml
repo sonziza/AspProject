@@ -1,17 +1,21 @@
-﻿
-@{
-    Layout = null;
-}
+﻿<partial name="Partial/_Slider" />
 
-<!DOCTYPE html>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/_LeftSidebar" />
+            </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>My Home page!!!</p>
-    <a asp-controller="Employees" asp-action="Index">Список сотрудников</a>
-</body>
-</html>
+            <div class="col-sm-9 padding-right">
+                <partial name="Partial/_FeaturesItems" />
+
+                <partial name="Partial/_CategoryTab" />
+
+
+                <partial name="Partial/_RecommendedItems" />
+
+            </div>
+        </div>
+    </div>
+</section>
