@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AspProject.DAL.Context
 {
-    class AspProjectDbContext : DbContext
+    public class AspProjectDbContext : DbContext
     {
         public AspProjectDbContext(DbContextOptions options):base(options)
         {

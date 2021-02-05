@@ -6,32 +6,21 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AspProject.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspProject
 {
     /// <summary>
     /// C#9 - используем record для создания авто-конструктора
+    /// Подгружаем конфиг данные appsetttings.json
     /// </summary>
     public record Startup(IConfiguration Configuration)
     {
-        /*
-        /// <summary>
-        /// Добавляем свойство для доступа к конфигурации
-        /// </summary>
-        public IConfiguration Configuration { get; }
-
-        /// <summary>
-        /// Добавляем новый конструктор, принимающий интерфейс Configuration
-        /// </summary>
-        /// <param name="configuration"></param>
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-        */
-
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AspProjectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
             services.AddTransient<IProductData, InMemoryProductData>();
             
