@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspProject.DAL\AspProject.DAL.csproj" />
     <ProjectReference Include="..\AspProjectDomain\AspProjectDomain.csproj" />
   </ItemGroup>
 
