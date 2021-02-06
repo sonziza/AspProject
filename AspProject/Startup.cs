@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AspProject.DAL.Context;
 using Microsoft.EntityFrameworkCore;
+using AspProject.Data;
 
 namespace AspProject
 {
@@ -20,6 +21,7 @@ namespace AspProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AspProjectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<AspProjectDBInitializer>();
 
             services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
             services.AddTransient<IProductData, InMemoryProductData>();
