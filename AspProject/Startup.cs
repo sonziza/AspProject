@@ -1,4 +1,4 @@
-using AspProject.Infrastructure.Interfaces;
+п»їusing AspProject.Infrastructure.Interfaces;
 using AspProject.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,18 +10,18 @@ using Microsoft.Extensions.Hosting;
 namespace AspProject
 {
     /// <summary>
-    /// C#9 - используем record для создания авто-конструктора
+    /// C#9 - РёСЃРїРѕР»СЊР·СѓРµРј record РґР»СЏ СЃРѕР·РґР°РЅРёСЏ Р°РІС‚Рѕ-РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
     /// </summary>
     public record Startup(IConfiguration Configuration)
     {
         /*
         /// <summary>
-        /// Добавляем свойство для доступа к конфигурации
+        /// Р”РѕР±Р°РІР»СЏРµРј СЃРІРѕР№СЃС‚РІРѕ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РєРѕРЅС„РёРіСѓСЂР°С†РёРё
         /// </summary>
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Добавляем новый конструктор, принимающий интерфейс Configuration
+        /// Р”РѕР±Р°РІР»СЏРµРј РЅРѕРІС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ, РїСЂРёРЅРёРјР°СЋС‰РёР№ РёРЅС‚РµСЂС„РµР№СЃ Configuration
         /// </summary>
         /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
@@ -30,15 +30,16 @@ namespace AspProject
         }
         */
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
-            //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
+            services.AddTransient<IProductData, InMemoryProductData>();
+            
+            
+            //РІ РґР°Р»СЊРЅРµР№С€РµРј С‚Р°Рє Рё Р±СѓРґРµРј РґРµР»Р°С‚СЊ - РЅРѕ РїРѕРєР° РґР»СЏ РЅР°РіР»СЏРґРЅРѕСЃС‚Рё Р±СѓРґРµРј СЂР°Р·Р±РёСЂР°С‚СЊ РїРѕ С‡Р°СЃС‚СЏРј СЌС‚РѕС‚ РїР°С‚С‚РµСЂРЅ
             //services.AddMvc(); 
-            //прописали сервис для работы с контроллерами
-            //AddRazorRuntimeCompillation - расширение RuntimeCompillation - для динамического изменения данных
+            //РїСЂРѕРїРёСЃР°Р»Рё СЃРµСЂРІРёСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РєРѕРЅС‚СЂРѕР»Р»РµСЂР°РјРё
+            //AddRazorRuntimeCompillation - СЂР°СЃС€РёСЂРµРЅРёРµ RuntimeCompillation - РґР»СЏ РґРёРЅР°РјРёС‡РµСЃРєРѕРіРѕ РёР·РјРµРЅРµРЅРёСЏ РґР°РЅРЅС‹С…
             services
                 .AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
@@ -52,7 +53,7 @@ namespace AspProject
                 app.UseDeveloperExceptionPage();
             }
 
-            //для подтягивания файлов на хосте (css файлы, картинки и проч.)
+            //РґР»СЏ РїРѕРґС‚СЏРіРёРІР°РЅРёСЏ С„Р°Р№Р»РѕРІ РЅР° С…РѕСЃС‚Рµ (css С„Р°Р№Р»С‹, РєР°СЂС‚РёРЅРєРё Рё РїСЂРѕС‡.)
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -62,12 +63,7 @@ namespace AspProject
 
             app.UseEndpoints(endpoints =>
             {
-                //муршруты прописываются сверху вниз от самых редких до самых общих
-                endpoints.MapGet("/greetings", async context =>
-                {
-                    await context.Response.WriteAsync(Configuration["Greetings"]);
-                });
-                //проецируем маршруты на контроллеры
+                //РїСЂРѕРµС†РёСЂСѓРµРј РјР°СЂС€СЂСѓС‚С‹ РЅР° РєРѕРЅС‚СЂРѕР»Р»РµСЂС‹
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}"
