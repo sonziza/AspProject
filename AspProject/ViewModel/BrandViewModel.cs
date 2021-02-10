@@ -6,5 +6,6 @@ namespace AspProject.ViewModel
         public int Id { get; init; }
 
         public string Name { get; init; }
+        public int ProductsConunt { get; set; }
     }
 }
