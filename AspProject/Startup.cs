@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using AspProject.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using AspProject.Data;
+using AspProject.Infrastructure.Services.InSQL;
 
 namespace AspProject
 {
@@ -24,9 +25,10 @@ namespace AspProject
             services.AddTransient<AspProjectDBInitializer>();
 
             services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
-            services.AddTransient<IProductData, InMemoryProductData>();
-            
-            
+            //services.AddTransient<IProductData, InMemoryProductData>();
+            services.AddTransient<IProductData, InSQLProductData>();
+
+
             //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
             //services.AddMvc(); 
             //прописали сервис для работы с контроллерами
@@ -37,8 +39,10 @@ namespace AspProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AspProjectDBInitializer db)
         {
+            db.Initialize();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
