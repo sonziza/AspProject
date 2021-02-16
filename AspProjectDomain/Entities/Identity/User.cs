@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AspProjectDomain.Entities.Identity
 {
-    class User : IdentityUser
+    public class User : IdentityUser
     {
         //Здесь удобно использовать технические данные 
         //которые будут использоваться в программе

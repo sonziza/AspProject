@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AspProjectDomain.Entities.Identity
 {
-    class Role : IdentityRole
+    public class Role : IdentityRole
     {
         public const string Administrator = "Administrators";
 
