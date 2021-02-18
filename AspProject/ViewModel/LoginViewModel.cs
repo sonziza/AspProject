@@ -18,6 +18,7 @@ namespace AspProject.ViewModel
         [Display(Name = "Запомнить меня")]
         public bool RememberMe { get; set; }
 
+        //перенаправляет пользователя на последнюю страницу, которая недоступна неавторизованным пользователям
         [HiddenInput(DisplayValue = false)]
         public string ReturnUrl { get; set; }
     }

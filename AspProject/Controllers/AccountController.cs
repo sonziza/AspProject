@@ -69,5 +69,38 @@ namespace AspProject.Controllers
         }
 
         #endregion
+        //сохраняем в LoginVM последний url для редиректа
+        public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel Model)
+        {
+            //Стандартная проверка
+            if (!ModelState.IsValid) return View(Model);
+            // логинимся с помощью пароля, используя _SignManager
+            var login_result = await _SignInManager.PasswordSignInAsync(
+                Model.UserName,
+                Model.Password,
+                Model.RememberMe,
+#if DEBUG
+                false
+#else 
+                true
+#endif
+                );
+
+            if (login_result.Succeeded)
+            {
+                //безопасный редирект авторизованного юзера (домашняя страница, если null)
+                return LocalRedirect(Model.ReturnUrl ?? "/");
+                //if (Url.IsLocalUrl(Model.ReturnUrl))
+                //    return Redirect(Model.ReturnUrl);
+                //return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError("", "Неверное имя пользователя или пароль!");
+
+            return View(Model);
+        }
     }
 }
