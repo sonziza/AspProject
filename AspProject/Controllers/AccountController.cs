@@ -69,6 +69,8 @@ namespace AspProject.Controllers
         }
 
         #endregion
+
+        #region Login
         //сохраняем в LoginVM последний url для редиректа
         public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
 
@@ -101,6 +103,24 @@ namespace AspProject.Controllers
             ModelState.AddModelError("", "Неверное имя пользователя или пароль!");
 
             return View(Model);
+        }
+        #endregion
+
+        /// <summary>
+        /// Выход из логина
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Logout()
+        {
+            await _SignInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied(string ReturnUrl)
+        {
+            //передадим в представление ViewBag.ReturnUrl для возврата на предыдущую страницу
+            ViewBag.ReturnUrl = ReturnUrl;
+            return View();
         }
     }
 }
