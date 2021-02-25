@@ -340,3 +340,6 @@ ASALocalRun/
 healthchecksdb
 /AspProject/wwwroot/lib/jquery
 /AspProject/wwwroot/lib
+/AspProject/wwwroot/js/site.min.js.gz
+/AspProject/wwwroot/js/site.min.js
+/AspProject/wwwroot/css/site.*
