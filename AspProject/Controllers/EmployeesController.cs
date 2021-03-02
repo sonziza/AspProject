@@ -2,6 +2,8 @@
 using AspProject.Infrastructure.Interfaces;
 using AspProject.Models;
 using AspProject.ViewModel;
+using AspProjectDomain.Entities.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace AspProject.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly IEmployeesData _EmployeesData;
@@ -30,11 +33,13 @@ namespace AspProject.Controllers
             }
             return NotFound();
         }
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Create()
         {
             return View("Edit", new EmployeeViewModel());
         }
         #region Edit
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Edit(int id)
         {
             if (id <= 0) return BadRequest();
@@ -51,6 +56,7 @@ namespace AspProject.Controllers
                 Post = employee.Post
             });
         }
+        [Authorize(Roles = Role.Administrator)]
         [HttpPost]
         public IActionResult Edit(EmployeeViewModel model)
         {
@@ -74,6 +80,7 @@ namespace AspProject.Controllers
         }
         #endregion
         #region delete
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult Delete(int id)
         {
             if (id <= 0) return BadRequest();
@@ -91,6 +98,7 @@ namespace AspProject.Controllers
             });
         }
         [HttpPost]
+        [Authorize(Roles = Role.Administrator)]
         public IActionResult DeleteConfirmed(int id)
         {
             _EmployeesData.Delete(id);
