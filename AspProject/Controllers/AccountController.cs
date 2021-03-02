@@ -1,5 +1,6 @@
 ﻿using AspProject.ViewModel;
 using AspProjectDomain.Entities.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace AspProject.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _UserManager;
@@ -25,6 +27,7 @@ namespace AspProject.Controllers
 
         #region Register
 
+        [AllowAnonymous]
         public IActionResult Register() => View(new RegisterUserViewModel());
 
         /// <summary>
@@ -33,6 +36,7 @@ namespace AspProject.Controllers
         /// <param name="Model"></param>
         /// <returns></returns>
         [HttpPost, ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterUserViewModel Model)
         {
             //проверка валидации данных
@@ -75,9 +79,11 @@ namespace AspProject.Controllers
 
         #region Login
         //сохраняем в LoginVM последний url для редиректа
+        [AllowAnonymous]
         public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
 
         [HttpPost, ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel Model)
         {
             //Стандартная проверка
