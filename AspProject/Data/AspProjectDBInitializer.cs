@@ -28,6 +28,8 @@ namespace AspProject.Data
         {
             _db = db;
             _Logger = logger;
+            _UserManager = userManager;
+            _RoleManager = roleManager;
         }
         public void Initialize()
         {
@@ -35,7 +37,7 @@ namespace AspProject.Data
             _Logger.LogInformation("Инициализация базы данных...");
 
             //_db.Database.EnsureDeleted();
-            _db.Database.EnsureCreated();
+            //_db.Database.EnsureCreated();
 
             var db = _db.Database;
 
@@ -52,6 +54,7 @@ namespace AspProject.Data
             try
             {
                 InitializeProducts();
+                InitializeIdentityAsync().Wait();
 
             }
             catch (Exception error)
