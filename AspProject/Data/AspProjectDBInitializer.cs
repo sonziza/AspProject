@@ -1,11 +1,14 @@
 ﻿
 
 using AspProject.DAL.Context;
+using AspProjectDomain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AspProject.Data
 {
@@ -16,7 +19,12 @@ namespace AspProject.Data
         /// </summary>
         private readonly AspProjectDbContext _db;
         private readonly ILogger<AspProjectDBInitializer> _Logger;
-        public AspProjectDBInitializer(AspProjectDbContext db, ILogger<AspProjectDBInitializer> logger)
+        private readonly UserManager<User> _UserManager;
+        RoleManager<Role> _RoleManager;
+        public AspProjectDBInitializer(AspProjectDbContext db,
+            ILogger<AspProjectDBInitializer> logger,
+            UserManager<User> userManager,
+            RoleManager<Role> roleManager)
         {
             _db = db;
             _Logger = logger;
@@ -113,6 +121,46 @@ namespace AspProject.Data
 
             _Logger.LogInformation("Инициализация товаров выполнена успешно ({0:0.0###})",
                 timer.Elapsed.TotalSeconds);
+        }
+        private async Task InitializeIdentityAsync()
+        {
+            var timer = Stopwatch.StartNew();
+            _Logger.LogInformation("Инициализация системы Identity...");
+
+            //Задача на проверку наличия роли ПОЛЬЗОВАТЕЛЬ/АДМИНИСТРАТОР/ и тд
+            async Task CheckRole(string RoleName)
+            {
+                if (!await _RoleManager.RoleExistsAsync(RoleName))
+                {
+                    await _RoleManager.CreateAsync(new Role { Name = RoleName });
+                }
+            }
+            await CheckRole(Role.Administrator);
+            await CheckRole(Role.Users);
+            
+            if (await _UserManager.FindByNameAsync(User.Administrator) is null)
+            {
+                _Logger.LogInformation("Профиль админа не обнаружен. Создаю...");
+                var admin = new User
+                {
+                    UserName = User.Administrator
+                };
+                //проверка на корректность создания профиля
+                var creation_result = await _UserManager.CreateAsync(admin, User.DefaultAdminPassword);
+                if (creation_result.Succeeded)
+                {
+                    _Logger.LogInformation("Учётная запись администратора создана успешно.");
+                    await _UserManager.AddToRoleAsync(admin, Role.Administrator);
+                    _Logger.LogInformation("Учётная запись администратора наделена ролью {0}", Role.Administrator);
+                }
+                else
+                {
+                    var errors = creation_result.Errors.Select(e => e.Description);
+                    throw new InvalidOperationException($"Ошибка при создании учётной записи администратора: {string.Join(",", errors)}");
+                }
+            }
+
+            _Logger.LogInformation("Инициализация системы Identity прошла успешно...");
         }
     }
 }
