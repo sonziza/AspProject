@@ -20,7 +20,7 @@ namespace AspProject.Data
         private readonly AspProjectDbContext _db;
         private readonly ILogger<AspProjectDBInitializer> _Logger;
         private readonly UserManager<User> _UserManager;
-        RoleManager<Role> _RoleManager;
+        private readonly RoleManager<Role> _RoleManager;
         public AspProjectDBInitializer(AspProjectDbContext db,
             ILogger<AspProjectDBInitializer> logger,
             UserManager<User> userManager,
