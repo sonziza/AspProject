@@ -129,10 +129,5 @@ namespace WebStore.Infrastructure.Services.InCookies
                    .Select(item => (product_view_models[item.ProductId], item.Quantity))
             };
         }
-
-        CartViewModel ICartService.GetViewModel()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
