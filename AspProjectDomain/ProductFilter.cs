@@ -5,5 +5,8 @@
         public int? SectionId { get; init; }
 
         public int? BrandId { get; init; }
+
+        //массив идентификаторов
+        public int[] Ids { get; set; }
     }
 }

@@ -20,12 +20,17 @@ namespace AspProject.Infrastructure.Services.InSQL
         public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
         {
             IQueryable<Product> query = db.Products;
+            if (Filter?.Ids?.Length > 0)
+                //если в фильтре указаны идентификаторы товаров (корзины)
+                query = query.Where(product => Filter.Ids.Contains(product.Id));
+            else
+            {
+                if (Filter?.SectionId is { } section_id)
+                    query = query.Where(product => product.SectionId == section_id);
 
-            if (Filter?.SectionId is { } section_id)
-                query = query.Where(product => product.SectionId == section_id);
-
-            if (Filter?.BrandId is { } brand_id)
-                query = query.Where(product => product.BrandId == brand_id);
+                if (Filter?.BrandId is { } brand_id)
+                    query = query.Where(product => product.BrandId == brand_id);
+            }
 
             return query;
         }

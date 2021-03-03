@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AspProjectDomain.Entities
 {
-    class Cart
+    public class Cart
     {
         //коллекция товаров в корзине
         public ICollection<CartItem> Items { get; set; } = new List<CartItem>();

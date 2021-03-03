@@ -13,6 +13,7 @@ using AspProject.Infrastructure.Services.InSQL;
 using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
+using WebStore.Infrastructure.Services.InCookies;
 
 namespace AspProject
 {
@@ -71,7 +72,7 @@ namespace AspProject
             services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
             //services.AddTransient<IProductData, InMemoryProductData>();
             services.AddTransient<IProductData, InSQLProductData>();
-
+            services.AddTransient<ICartService, InCookiesCartService>();
 
             //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
             //services.AddMvc(); 
