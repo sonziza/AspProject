@@ -19,7 +19,10 @@ namespace AspProject.Infrastructure.Services.InSQL
 
         public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
         {
-            IQueryable<Product> query = db.Products;
+            //подключаем дополнительные таблицы к Продуктам
+            IQueryable<Product> query = db.Products
+                .Include(p => p.Brand)
+                .Include(p => p.Section);
             if (Filter?.Ids?.Length > 0)
                 //если в фильтре указаны идентификаторы товаров (корзины)
                 query = query.Where(product => Filter.Ids.Contains(product.Id));
