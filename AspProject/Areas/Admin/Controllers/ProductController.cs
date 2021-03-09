@@ -1,4 +1,5 @@
-﻿using AspProjectDomain.Entities.Identity;
+﻿using AspProject.Infrastructure.Interfaces;
+using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,9 +12,21 @@ namespace AspProject.Areas.Admin.Controllers
     [Area("Admin"), Authorize(Roles = Role.Administrator)]
     public class ProductController : Controller
     {
+        private readonly IProductData _ProductData;
+
+        public ProductController(IProductData ProductData) => _ProductData = ProductData;
         public IActionResult Index()
         {
-            return View();
+            return View(_ProductData.GetProducts());
         }
+        public IActionResult Edit(int id) =>
+            _ProductData.GetProductById(id) is { } product
+                ? View(product)
+                : NotFound();
+
+        public IActionResult Delete(int id) =>
+            _ProductData.GetProductById(id) is { } product
+                ? View(product)
+                : NotFound();
     }
 }
