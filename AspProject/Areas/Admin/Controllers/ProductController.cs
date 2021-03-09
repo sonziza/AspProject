@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AspProject.Areas.Admin.Controllers
 {
     [Area("Admin"), Authorize(Roles = Role.Administrator)]
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
         public IActionResult Index()
         {
