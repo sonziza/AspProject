@@ -107,7 +107,13 @@ namespace AspProject
 
             app.UseEndpoints(endpoints =>
             {
+                //маршрутизация области (Админка, например)
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                  );
                 //проецируем маршруты на контроллеры
+                //Основной маршрут должен быть самым последним
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}"
