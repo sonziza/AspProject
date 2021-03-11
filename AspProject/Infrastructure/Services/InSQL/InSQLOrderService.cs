@@ -3,6 +3,7 @@ using AspProject.Infrastructure.Interfaces;
 using AspProject.ViewModel;
 using AspProjectDomain.Entities;
 using AspProjectDomain.Entities.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace AspProject.Infrastructure.Services.InSQL
 {
+    [Authorize]
     public class InSQLOrderService : IOrderService
     {
         private readonly AspProjectDbContext _db;

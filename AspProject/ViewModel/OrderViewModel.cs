@@ -1,4 +1,6 @@
-﻿namespace AspProject.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AspProject.ViewModel
 {
     public class OrderViewModel
     {

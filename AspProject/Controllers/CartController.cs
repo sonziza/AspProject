@@ -1,4 +1,5 @@
 ﻿using AspProject.Infrastructure.Interfaces;
+using AspProject.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace AspProject.Controllers
 
         public CartController(ICartService CartService) => _CartService = CartService;
 
-        public IActionResult Index() => View(_CartService.GetViewModel());
+        public IActionResult Index() => View(new CartOrderViewModel { Cart = _CartService.GetViewModel() });
 
         public IActionResult Add(int id)
         {
@@ -37,6 +38,30 @@ namespace AspProject.Controllers
         {
             _CartService.Clear();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Checkout(OrderViewModel orderViewModel, [FromServices] IOrderService orderService)
+        {
+            if (!ModelState.IsValid)
+                return View(nameof(Index), new CartOrderViewModel
+                {
+                    Cart = _CartService.GetViewModel(),
+                    Order = orderViewModel,
+                });
+
+            var order = await orderService.CreateOrder(
+                User.Identity!.Name,
+                _CartService.GetViewModel(),
+                orderViewModel
+                );
+
+            _CartService.Clear();
+
+            return RedirectToAction(nameof(OrderConfirmed), new { order.Id });
+        }
+        public async Task<IActionResult> OrderConfirmed(int id)
+        {
+            ViewBag.OrderId = id;
+            return View();
         }
     }
 }
