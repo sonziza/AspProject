@@ -73,7 +73,7 @@ namespace AspProject
             //services.AddTransient<IProductData, InMemoryProductData>();
             services.AddTransient<IProductData, InSQLProductData>();
             services.AddTransient<ICartService, InCookiesCartService>();
-
+            services.AddTransient<IOrderService, InSQLOrderService>();
             //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
             //services.AddMvc(); 
             //прописали сервис для работы с контроллерами
