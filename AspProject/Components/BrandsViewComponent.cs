@@ -21,6 +21,7 @@ namespace AspProject.Components
                {
                    Id = brand.Id,
                    Name = brand.Name,
+                   ProductsConunt = brand.Products.Count(),
                });
     }
 }

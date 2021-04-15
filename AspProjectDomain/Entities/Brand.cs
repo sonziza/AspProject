@@ -9,5 +9,7 @@ namespace AspProjectDomain.Entities
     public class Brand : NamedEntity, IOrderedEntity
     {
         public int Order { get; set; }
+        //отношение "один-ко-многим к таблице Products
+        public ICollection<Product> Products { get; set; }
     }
 }

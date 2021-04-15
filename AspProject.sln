@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspProject", "AspProject\As
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspProjectDomain", "AspProjectDomain\AspProjectDomain.csproj", "{77D72719-D67A-4854-AF34-F41CC17602E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspProject.DAL", "AspProject.DAL\AspProject.DAL.csproj", "{6A63AFF1-3670-4E5E-9042-089652146D40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{77D72719-D67A-4854-AF34-F41CC17602E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77D72719-D67A-4854-AF34-F41CC17602E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77D72719-D67A-4854-AF34-F41CC17602E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A63AFF1-3670-4E5E-9042-089652146D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A63AFF1-3670-4E5E-9042-089652146D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A63AFF1-3670-4E5E-9042-089652146D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A63AFF1-3670-4E5E-9042-089652146D40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -36,8 +36,26 @@ namespace AspProject.Components
                        Id = p.Id,
                        Name = p.Name,
                        Price = p.Price,
-                       ImageUrl = p.ImageUrl
+                       ImageUrl = p.ImageUrl,
+                       Brand = p.Brand?.Name
                    })
+            });
+        }
+        /// <summary>
+        /// TODO: избавиться от копипасты функционала в Produtc(s) - с помощью mapping
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult Details(int id)
+        {
+            var product = _ProductData.GetProductById(id);
+            return View(new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                ImageUrl = product.ImageUrl,
+                Brand = product.Brand?.Name
             });
         }
     }

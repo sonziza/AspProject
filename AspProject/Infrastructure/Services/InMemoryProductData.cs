@@ -28,5 +28,6 @@ namespace AspProject.Infrastructure.Services
 
             return query;
         }
+        public Product GetProductById(int id) => TestData.Products.FirstOrDefault(p => p.Id == id);
     }
 }
