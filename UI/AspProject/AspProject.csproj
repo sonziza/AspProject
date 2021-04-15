@@ -41,6 +41,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\AspProjectDomain\AspProjectDomain.csproj" />
     <ProjectReference Include="..\..\Services\AspProject.DAL\AspProject.DAL.csproj" />
+    <ProjectReference Include="..\..\Services\AspProject.Interfaces\AspProject.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
