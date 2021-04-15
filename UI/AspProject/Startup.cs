@@ -1,5 +1,4 @@
-﻿using AspProject.Infrastructure.Services;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -7,13 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AspProject.DAL.Context;
 using Microsoft.EntityFrameworkCore;
-using AspProject.Data;
-using AspProject.Infrastructure.Services.InSQL;
 using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
-using AspProject.Infrastructure.Services.InCookies;
 using AspProject.Interfaces.Services;
+using AspProject.Services.Data;
+using AspProject.Services.Services;
+using AspProject.Services.Services.InCookies;
+using AspProject.Services.Services.InSQL;
 
 namespace AspProject
 {

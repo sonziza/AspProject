@@ -1,13 +1,11 @@
-﻿using AspProject.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AspProject.Interfaces.Services;
+using AspProject.Services.Data;
 using AspProjectDomain;
 using AspProjectDomain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AspProject.Interfaces.Services;
 
-namespace AspProject.Infrastructure.Services
+namespace AspProject.Services.Services
 {
     public class InMemoryProductData : IProductData
     {

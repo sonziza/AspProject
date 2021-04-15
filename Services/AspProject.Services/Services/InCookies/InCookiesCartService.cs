@@ -6,7 +6,7 @@ using AspProjectDomain.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace AspProject.Infrastructure.Services.InCookies
+namespace AspProject.Services.Services.InCookies
 {
     public class InCookiesCartService : ICartService
     {

@@ -1,14 +1,12 @@
-﻿using AspProject.DAL.Context;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AspProject.DAL.Context;
+using AspProject.Interfaces.Services;
 using AspProjectDomain;
 using AspProjectDomain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AspProject.Interfaces.Services;
 
-namespace AspProject.Infrastructure.Services.InSQL
+namespace AspProject.Services.Services.InSQL
 {
     public record InSQLProductData(AspProjectDbContext db) : IProductData
     {

@@ -1,5 +1,4 @@
-﻿using AspProject.Data;
-using AspProjectDomain.Entities.Identity;
+﻿using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;

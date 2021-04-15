@@ -1,17 +1,17 @@
-﻿using AspProject.DAL.Context;
-using AspProjectDomain.Entities;
-using AspProjectDomain.Entities.Identity;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProject.DAL.Context;
 using AspProject.Interfaces.Services;
+using AspProjectDomain.Entities;
+using AspProjectDomain.Entities.Identity;
 using AspProjectDomain.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
-namespace AspProject.Infrastructure.Services.InSQL
+namespace AspProject.Services.Services.InSQL
 {
     [Authorize]
     public class InSQLOrderService : IOrderService

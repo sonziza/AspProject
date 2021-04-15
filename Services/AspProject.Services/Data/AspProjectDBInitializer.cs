@@ -1,16 +1,14 @@
-﻿
-
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using AspProject.DAL.Context;
 using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace AspProject.Data
+namespace AspProject.Services.Data
 {
     public class AspProjectDBInitializer
     {

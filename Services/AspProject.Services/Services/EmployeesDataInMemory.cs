@@ -1,12 +1,11 @@
-﻿using AspProject.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AspProject.Interfaces.Services;
+using AspProject.Services.Data;
 using AspProjectDomain.Models;
 
-namespace AspProject.Infrastructure.Services
+namespace AspProject.Services.Services
 {
     public class EmployeesDataInMemory : IEmployeesData
     {

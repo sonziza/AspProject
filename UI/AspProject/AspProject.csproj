@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Infrastructure\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
@@ -42,6 +43,7 @@
     <ProjectReference Include="..\..\Common\AspProjectDomain\AspProjectDomain.csproj" />
     <ProjectReference Include="..\..\Services\AspProject.DAL\AspProject.DAL.csproj" />
     <ProjectReference Include="..\..\Services\AspProject.Interfaces\AspProject.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Services\AspProject.Services\AspProject.Services.csproj" />
   </ItemGroup>
 
 </Project>

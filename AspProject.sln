@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspProject", "UI\AspProject
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspProject.Interfaces", "Services\AspProject.Interfaces\AspProject.Interfaces.csproj", "{BCBF7F7B-9A17-4651-8B83-6B1CFD946895}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspProject.Services", "Services\AspProject.Services\AspProject.Services.csproj", "{1F32D805-128E-4DCB-955C-E4080D9406DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{BCBF7F7B-9A17-4651-8B83-6B1CFD946895}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCBF7F7B-9A17-4651-8B83-6B1CFD946895}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCBF7F7B-9A17-4651-8B83-6B1CFD946895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F32D805-128E-4DCB-955C-E4080D9406DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F32D805-128E-4DCB-955C-E4080D9406DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F32D805-128E-4DCB-955C-E4080D9406DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F32D805-128E-4DCB-955C-E4080D9406DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{1748CDEF-C600-415F-A813-B04102D16A77} = {9C3970F1-6315-4C07-90B3-96D0DADC0A6B}
 		{32B29AA6-CC13-4C7F-BA0A-B408A7D52049} = {C2A950CC-9E35-4E11-891E-DCAC453698AE}
 		{BCBF7F7B-9A17-4651-8B83-6B1CFD946895} = {9C3970F1-6315-4C07-90B3-96D0DADC0A6B}
+		{1F32D805-128E-4DCB-955C-E4080D9406DA} = {9C3970F1-6315-4C07-90B3-96D0DADC0A6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2601329-5DBF-43D9-A11F-507D58895490}
