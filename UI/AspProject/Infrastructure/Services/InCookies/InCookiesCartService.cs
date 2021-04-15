@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-
-using Microsoft.AspNetCore.Http;
-
-using Newtonsoft.Json;
-
+﻿using System.Linq;
+using AspProject.Interfaces.Services;
 using AspProjectDomain;
 using AspProjectDomain.Entities;
-using AspProject.Infrastructure.Interfaces;
-using AspProject.ViewModel;
+using AspProjectDomain.ViewModel;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
-namespace WebStore.Infrastructure.Services.InCookies
+namespace AspProject.Infrastructure.Services.InCookies
 {
     public class InCookiesCartService : ICartService
     {

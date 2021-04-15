@@ -1,5 +1,5 @@
 ﻿
-namespace AspProject.ViewModel
+namespace AspProjectDomain.ViewModel
 {
     public class BrandViewModel
     {

@@ -1,11 +1,11 @@
-﻿using AspProject.Infrastructure.Interfaces;
-using AspProjectDomain.Entities.Identity;
+﻿using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProject.Interfaces.Services;
 
 namespace AspProject.Areas.Admin.Controllers
 {

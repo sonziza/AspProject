@@ -1,10 +1,6 @@
-﻿using AspProject.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspProjectDomain.ViewModel;
 
-namespace AspProject.Infrastructure.Interfaces
+namespace AspProject.Interfaces.Services
 {
     public interface ICartService
     {

@@ -1,11 +1,9 @@
-﻿using AspProject.ViewModel;
-using AspProjectDomain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AspProjectDomain.Entities;
+using AspProjectDomain.ViewModel;
 
-namespace AspProject.Infrastructure.Interfaces
+namespace AspProject.Interfaces.Services
 {
     public interface IOrderService
     {

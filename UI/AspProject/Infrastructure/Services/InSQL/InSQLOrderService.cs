@@ -1,6 +1,4 @@
 ﻿using AspProject.DAL.Context;
-using AspProject.Infrastructure.Interfaces;
-using AspProject.ViewModel;
 using AspProjectDomain.Entities;
 using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProject.Interfaces.Services;
+using AspProjectDomain.ViewModel;
 
 namespace AspProject.Infrastructure.Services.InSQL
 {

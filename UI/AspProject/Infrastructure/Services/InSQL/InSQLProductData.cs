@@ -1,5 +1,4 @@
 ﻿using AspProject.DAL.Context;
-using AspProject.Infrastructure.Interfaces;
 using AspProjectDomain;
 using AspProjectDomain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProject.Interfaces.Services;
 
 namespace AspProject.Infrastructure.Services.InSQL
 {

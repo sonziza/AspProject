@@ -1,13 +1,10 @@
-﻿using AspProject.Infrastructure.Interfaces;
-using AspProject.ViewModel;
+﻿using System.Linq;
+using AspProject.Interfaces.Services;
 using AspProjectDomain;
+using AspProjectDomain.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace AspProject.Components
+namespace AspProject.Controllers
 {
     public class CatalogController : Controller
     {

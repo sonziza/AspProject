@@ -1,5 +1,4 @@
-﻿using AspProject.Infrastructure.Interfaces;
-using AspProject.Infrastructure.Services;
+﻿using AspProject.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +12,8 @@ using AspProject.Infrastructure.Services.InSQL;
 using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
-using WebStore.Infrastructure.Services.InCookies;
+using AspProject.Infrastructure.Services.InCookies;
+using AspProject.Interfaces.Services;
 
 namespace AspProject
 {

@@ -1,5 +1,4 @@
-﻿using AspProject.ViewModel;
-using AspProjectDomain.Entities.Identity;
+﻿using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProjectDomain.ViewModel;
 
 namespace AspProject.Controllers
 {

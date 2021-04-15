@@ -1,9 +1,9 @@
-﻿using AspProject.Models;
-using AspProjectDomain.Entities;
+﻿using AspProjectDomain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProjectDomain.Models;
 
 namespace AspProject.Data
 {

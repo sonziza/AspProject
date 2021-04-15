@@ -1,10 +1,7 @@
-﻿using AspProject.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using AspProjectDomain.Models;
 
-namespace AspProject.Infrastructure.Interfaces
+namespace AspProject.Interfaces.Services
 {
     public interface IEmployeesData
     {

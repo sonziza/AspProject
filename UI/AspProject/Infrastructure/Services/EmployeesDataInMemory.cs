@@ -1,10 +1,10 @@
 ﻿using AspProject.Data;
-using AspProject.Infrastructure.Interfaces;
-using AspProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProject.Interfaces.Services;
+using AspProjectDomain.Models;
 
 namespace AspProject.Infrastructure.Services
 {
