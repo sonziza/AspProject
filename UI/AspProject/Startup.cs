@@ -10,10 +10,12 @@ using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using AspProject.Interfaces.Services;
+using AspProject.Interfaces.TestAPI;
 using AspProject.Services.Data;
 using AspProject.Services.Services;
 using AspProject.Services.Services.InCookies;
 using AspProject.Services.Services.InSQL;
+using Clients.Values;
 
 namespace AspProject
 {
@@ -81,6 +83,7 @@ namespace AspProject
             services
                 .AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+            services.AddScoped<IValuesClientService, ValuesClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

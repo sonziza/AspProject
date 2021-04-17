@@ -6,12 +6,13 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using AspProject.Interfaces.TestAPI;
 using Clients.Base;
 using Microsoft.Extensions.Configuration;
 
 namespace Clients.Values
 {
-    class ValuesClient:BaseClient
+    public class ValuesClient:BaseClient, IValuesClientService
     {
         public ValuesClient(IConfiguration Configuration) : base(Configuration, "api/values") { }
 

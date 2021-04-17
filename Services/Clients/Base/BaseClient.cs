@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Clients.Base
 {
-    class BaseClient
+    public class BaseClient
     {
         //Адрес контроллера(сервисов), к которому будет обращаться клиент
         protected string Address { get; }

@@ -11,7 +11,7 @@ namespace AspProject.Interfaces.TestAPI
     /// Интерфейс для управления работой клиента с API
     /// Желательно, чтобы названия методов не перекликались с контроллером API
     /// </summary>
-    interface IValuesClientService
+    public interface IValuesClientService
     {
         IEnumerable<string> Get();
 
