@@ -16,25 +16,34 @@ namespace AspProject.Services.Services
             _Employees = TestData.Employees;
             _MaxId = _Employees.DefaultIfEmpty().Max(e => e?.Id ?? 1);
         }
+
+
+        public IEnumerable<Employee> Get() => _Employees;
+
+        public Employee Get(int id) => _Employees.FirstOrDefault(employee => employee.Id == id);
+        public Employee GetByName(string LastName, string FirstName, string Patronymic) =>
+            _Employees.FirstOrDefault(e => e.LastName == LastName && e.FirstName == FirstName && e.Patronymic == Patronymic);
+
         public int Add(Employee employee)
         {
             if (employee is null) throw new ArgumentNullException(nameof(employee));
             if (_Employees.Contains(employee)) return employee.Id;
-            employee.Id = ++ _MaxId;
+            employee.Id = ++_MaxId;
             _Employees.Add(employee);
             return employee.Id;
         }
-
-        public bool Delete(int id)
+        public Employee Add(string LastName, string FirstName, string Patronymic, int Age)
         {
-            var item = Get(id);
-            if (item is null) return false;
-            return _Employees.Remove(item);
+            var employee = new Employee
+            {
+                LastName = LastName,
+                FirstName = FirstName,
+                Patronymic = Patronymic,
+                Age = Age
+            };
+            Add(employee);
+            return employee;
         }
-
-        public IEnumerable<Employee> GetAll() => _Employees;
-
-        public Employee Get(int id) => _Employees.FirstOrDefault(employee => employee.Id == id);
 
         public void Update(Employee employee)
         {
@@ -49,6 +58,12 @@ namespace AspProject.Services.Services
             db_set.FirstName = employee.FirstName;
             db_set.Patronymic = employee.Patronymic;
             db_set.Age = employee.Age;
+        }
+        public bool Delete(int id)
+        {
+            var item = Get(id);
+            if (item is null) return false;
+            return _Employees.Remove(item);
         }
     }
 }
