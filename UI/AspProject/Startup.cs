@@ -30,7 +30,31 @@ namespace AspProject
             services.AddDbContext<AspProjectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<AspProjectDBInitializer>();
 
-            
+            //если юзер и роль по умолчанию
+            //services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<AspProjectDbContext>()
+                .AddDefaultTokenProviders();
+
+            //конфигурация системы Identity
+            // - требование к паролю
+            services.Configure<IdentityOptions>(opt =>
+            {
+#if DEBUG
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredUniqueChars = 3;
+#endif
+                opt.User.RequireUniqueEmail = false; //будет ли использоваться почта логином
+                opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
+                opt.Lockout.AllowedForNewUsers = false;
+                opt.Lockout.MaxFailedAccessAttempts = 10;
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            });
 
             //конфигурация системы Cookies
             services.ConfigureApplicationCookie(opt =>
@@ -47,6 +71,11 @@ namespace AspProject
                 opt.SlidingExpiration = true;
             });
 
+            //Конфигурация прочих сервисов
+            services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
+            //services.AddTransient<IProductData, InMemoryProductData>();
+            services.AddTransient<IProductData, InSQLProductData>();
+            services.AddTransient<IOrderService, InSQLOrderService>();
             services.AddScoped<IValuesClientService, ValuesClient>();
             services.AddTransient<ICartService, InCookiesCartService>();
             //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
