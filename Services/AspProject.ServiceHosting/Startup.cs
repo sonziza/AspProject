@@ -1,7 +1,13 @@
+using System;
 using AspProject.DAL.Context;
+using AspProject.Interfaces.Services;
 using AspProject.Services.Data;
+using AspProject.Services.Services;
+using AspProject.Services.Services.InSQL;
+using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,12 +30,44 @@ namespace AspProject.ServiceHosting
             services.AddDbContext<AspProjectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<AspProjectDBInitializer>();
 
+            //если юзер и роль по умолчанию
+            //services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<AspProjectDbContext>()
+                .AddDefaultTokenProviders();
+
+            //конфигурация системы Identity
+            // - требование к паролю
+            services.Configure<IdentityOptions>(opt =>
+            {
+#if DEBUG
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredUniqueChars = 3;
+#endif
+                opt.User.RequireUniqueEmail = false; //будет ли использоваться почта логином
+                opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
+                opt.Lockout.AllowedForNewUsers = false;
+                opt.Lockout.MaxFailedAccessAttempts = 10;
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            });
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AspProject.ServiceHosting", Version = "v1" });
             });
+
+
+            services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
+            //services.AddTransient<IProductData, InMemoryProductData>();
+            services.AddTransient<IProductData, InSQLProductData>();
+            services.AddTransient<IOrderService, InSQLOrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
