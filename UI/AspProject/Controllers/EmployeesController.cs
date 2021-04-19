@@ -21,7 +21,7 @@ namespace AspProject.Controllers
         }
         public IActionResult Index()
         {
-            return View(_EmployeesData.GetAll());
+            return View(_EmployeesData.Get());
         }
         public IActionResult Details(int id)
         {

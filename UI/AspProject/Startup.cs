@@ -15,6 +15,7 @@ using AspProject.Services.Data;
 using AspProject.Services.Services;
 using AspProject.Services.Services.InCookies;
 using AspProject.Services.Services.InSQL;
+using Clients.Employees;
 using Clients.Values;
 
 namespace AspProject
@@ -72,7 +73,7 @@ namespace AspProject
             });
 
             //Конфигурация прочих сервисов
-            services.AddTransient<IEmployeesData, EmployeesDataInMemory>();
+            services.AddTransient<IEmployeesData, EmployeesClient>();
             //services.AddTransient<IProductData, InMemoryProductData>();
             services.AddTransient<IProductData, InSQLProductData>();
             services.AddTransient<IOrderService, InSQLOrderService>();

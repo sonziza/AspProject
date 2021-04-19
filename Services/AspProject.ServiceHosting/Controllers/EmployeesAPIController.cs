@@ -22,10 +22,10 @@ namespace AspProject.ServiceHosting.Controllers
         }
 
 
-        [HttpGet] //http://localhost:5001/api/employees
+        [HttpGet("{Id}")]//http://localhost:5001/api/employees/3
         public Employee Get(int id) => _EmployeesData.Get(id);
 
-        [HttpGet("{Id}")]//http://localhost:5001/api/employees/3
+        [HttpGet] //http://localhost:5001/api/employees
         public IEnumerable<Employee> Get() => _EmployeesData.Get();
        
         [HttpGet("employee")]//http://localhost:5001/api/employees/employee?LastName=Иванов&FirstName=Олег&Patronymic=Петрович
