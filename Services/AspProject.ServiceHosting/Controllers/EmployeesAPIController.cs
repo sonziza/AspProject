@@ -26,7 +26,7 @@ namespace AspProject.ServiceHosting.Controllers
         public Employee Get(int id) => _EmployeesData.Get(id);
 
         [HttpGet("{Id}")]//http://localhost:5001/api/employees/3
-        public IEnumerable<Employee> GetAll() => _EmployeesData.GetAll();
+        public IEnumerable<Employee> Get() => _EmployeesData.Get();
        
         [HttpGet("employee")]//http://localhost:5001/api/employees/employee?LastName=Иванов&FirstName=Олег&Patronymic=Петрович
         public Employee GetByName(string LastName, string FirstName, string Patronymic) => _EmployeesData.GetByName(LastName, FirstName, Patronymic);

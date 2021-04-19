@@ -8,7 +8,7 @@ namespace AspProject.Interfaces.Services
         Employee GetByName(string LastName, string FirstName, string Patronymic);
         Employee Add(string LastName, string FirstName, string Patronymic, int Age);
 
-        IEnumerable<Employee> GetAll();
+        IEnumerable<Employee> Get();
         Employee Get(int id);
         int Add(Employee employee);
         void Update(Employee employee);
