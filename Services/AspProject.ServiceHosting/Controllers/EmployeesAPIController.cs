@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspProject.Interfaces;
 using AspProject.Interfaces.Services;
 using AspProjectDomain.Models;
 
 namespace AspProject.ServiceHosting.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(WebAPI.Employees)]
     [ApiController]
     public class EmployeesAPIController : ControllerBase, IEmployeesData
     {
