@@ -16,18 +16,19 @@ namespace AspProject.ServiceHosting.Controllers
     {
         private readonly IEmployeesData _EmployeesData;
 
-        public EmployeesAPIController(IEmployeesData employeesData)
+        public EmployeesAPIController(
+            IEmployeesData employeesData)
         {
             _EmployeesData = employeesData;
         }
 
 
-        [HttpGet("{Id}")]//http://localhost:5001/api/employees/3
-        public Employee Get(int id) => _EmployeesData.Get(id);
-
         [HttpGet] //http://localhost:5001/api/employees
         public IEnumerable<Employee> Get() => _EmployeesData.Get();
-       
+
+        [HttpGet("{Id}")]//http://localhost:5001/api/employees/3
+        public Employee Get(int id) => _EmployeesData.Get(id);
+        
         [HttpGet("employee")]//http://localhost:5001/api/employees/employee?LastName=Иванов&FirstName=Олег&Patronymic=Петрович
         public Employee GetByName(string LastName, string FirstName, string Patronymic) => _EmployeesData.GetByName(LastName, FirstName, Patronymic);
        
@@ -37,12 +38,13 @@ namespace AspProject.ServiceHosting.Controllers
         [HttpPost("employee")]//http://localhost:5001/api/employees/employee?LastName=Иванов&FirstName=Олег&Patronymic=Петрович
         public Employee Add(string LastName, string FirstName, string Patronymic, int Age) => _EmployeesData.Add(LastName, FirstName, Patronymic, Age);
 
-        [HttpPost]
+        [HttpPut]
         public void Update(Employee employee)
         {
             _EmployeesData.Update(employee);
         }
 
+        [HttpDelete("{id}")]
         public bool Delete(int id) => _EmployeesData.Delete(id);
     }
 }
