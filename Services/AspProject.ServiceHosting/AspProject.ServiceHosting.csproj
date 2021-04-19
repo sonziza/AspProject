@@ -8,4 +8,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\AspProjectDomain\AspProjectDomain.csproj" />
+    <ProjectReference Include="..\AspProject.DAL\AspProject.DAL.csproj" />
+    <ProjectReference Include="..\AspProject.Interfaces\AspProject.Interfaces.csproj" />
+    <ProjectReference Include="..\AspProject.Services\AspProject.Services.csproj" />
+  </ItemGroup>
+
 </Project>
