@@ -16,6 +16,7 @@ using AspProject.Services.Services;
 using AspProject.Services.Services.InCookies;
 using AspProject.Services.Services.InSQL;
 using Clients.Employees;
+using Clients.Products;
 using Clients.Values;
 
 namespace AspProject
@@ -28,7 +29,8 @@ namespace AspProject
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AspProjectDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AspProjectDbContext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddTransient<AspProjectDBInitializer>();
 
             //если юзер и роль по умолчанию
@@ -75,7 +77,7 @@ namespace AspProject
             //Конфигурация прочих сервисов
             services.AddTransient<IEmployeesData, EmployeesClient>();
             //services.AddTransient<IProductData, InMemoryProductData>();
-            services.AddTransient<IProductData, InSQLProductData>();
+            services.AddTransient<IProductData, ProductsClient>();
             services.AddTransient<IOrderService, InSQLOrderService>();
             services.AddScoped<IValuesClientService, ValuesClient>();
             services.AddTransient<ICartService, InCookiesCartService>();
