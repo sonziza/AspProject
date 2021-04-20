@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AspProject.Interfaces;
 using AspProject.Interfaces.Services;
 using AspProjectDomain.Models;
+using Microsoft.Extensions.Logging;
 
 namespace AspProject.ServiceHosting.Controllers
 {
@@ -15,11 +16,13 @@ namespace AspProject.ServiceHosting.Controllers
     public class EmployeesAPIController : ControllerBase, IEmployeesData
     {
         private readonly IEmployeesData _EmployeesData;
+        private readonly ILogger<EmployeesAPIController> _logger;
 
         public EmployeesAPIController(
-            IEmployeesData employeesData)
+            IEmployeesData employeesData, ILogger<EmployeesAPIController> logger)
         {
             _EmployeesData = employeesData;
+            _logger = logger;
         }
 
 
@@ -33,18 +36,30 @@ namespace AspProject.ServiceHosting.Controllers
         public Employee GetByName(string LastName, string FirstName, string Patronymic) => _EmployeesData.GetByName(LastName, FirstName, Patronymic);
        
         [HttpPost]
-        public int Add(Employee employee) => _EmployeesData.Add(employee);
-       
+        public int Add(Employee employee)
+        {
+            _logger.LogInformation($"Добавление сотрудника {employee}");
+            return _EmployeesData.Add(employee);
+        }
+
         [HttpPost("employee")]//http://localhost:5001/api/employees/employee?LastName=Иванов&FirstName=Олег&Patronymic=Петрович
         public Employee Add(string LastName, string FirstName, string Patronymic, int Age) => _EmployeesData.Add(LastName, FirstName, Patronymic, Age);
 
         [HttpPut]
         public void Update(Employee employee)
         {
+            _logger.LogInformation($"Обновление сотрудника: {employee}");
             _EmployeesData.Update(employee);
+            _logger.LogInformation("Обновление завершено");
         }
 
         [HttpDelete("{id}")]
-        public bool Delete(int id) => _EmployeesData.Delete(id);
+        public bool Delete(int id)
+        {
+            _logger.LogInformation($"Удаление сотрудника с id: {id}");
+            var result = _EmployeesData.Delete(id);
+            _logger.LogInformation("Удаление завершено");
+            return result;
+        }
     }
 }

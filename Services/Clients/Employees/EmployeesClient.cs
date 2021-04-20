@@ -9,14 +9,17 @@ using AspProject.Interfaces.Services;
 using AspProjectDomain.Models;
 using Clients.Base;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Clients.Employees
 {
     public class EmployeesClient:BaseClient, IEmployeesData
     {
+        private readonly ILogger<EmployeesClient> _logger;
 
-        public EmployeesClient(IConfiguration configuration) : base(configuration, WebAPI.Employees)
+        public EmployeesClient(IConfiguration configuration, ILogger<EmployeesClient> logger) : base(configuration, WebAPI.Employees)
         {
+            _logger = logger;
         }
         public IEnumerable<Employee> Get() => Get<IEnumerable<Employee>>(Address);
 
@@ -25,17 +28,28 @@ namespace Clients.Employees
         public Employee GetByName(string LastName, string FirstName, string Patronymic) =>
             Get<Employee>($"{Address}/employee?LastName={LastName}&FirstName={FirstName}&Patronymic={Patronymic}");
 
-        public int Add(Employee employee) => Post(Address, employee).Content.ReadAsAsync<int>().Result;
+        public int Add(Employee employee)
+        {
+            _logger.LogInformation($"Добавление сотрудника {employee}");
+            return Post(Address, employee).Content.ReadAsAsync<int>().Result;
+        }
 
         public Employee Add(string LastName, string FirstName, string Patronymic, int Age) =>
             Post($"{Address}/employee?LastName={LastName}&FirstName={FirstName}&Patronymic={Patronymic}", "")
                 .Content.ReadAsAsync<Employee>().Result;
 
-        public void Update(Employee employee) => Put(Address, employee);
+        public void Update(Employee employee)
+        {
+            _logger.LogInformation($"Обновление сотрудника: {employee}");
+            Put(Address, employee);
+            _logger.LogInformation("Обновление завершено");
+        }
 
         public bool Delete(int id)
         {
+            _logger.LogInformation($"Удаление сотрудника с id: {id}");
             var result = Delete($"{Address}/{id}").IsSuccessStatusCode;
+            _logger.LogInformation("Удаление завершено");
             return result;
         }
     }
