@@ -41,5 +41,17 @@ namespace AspProject.ServiceHosting.Controllers
         {
             return _productData.GetProductById(id);
         }
+
+        [HttpGet("{id}")]
+        public SectionDTO GetSectionById(int id)
+        {
+            return _productData.GetSectionById(id);
+        }
+
+        [HttpGet("{id}")]
+        public BrandDTO GetBrandById(int id)
+        {
+            return _productData.GetBrandById(id);
+        }
     }
 }

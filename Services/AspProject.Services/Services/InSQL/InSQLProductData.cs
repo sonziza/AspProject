@@ -42,6 +42,17 @@ namespace AspProject.Services.Services.InSQL
             db.Products
               .Include(product => product.Brand)
               .Include(product => product.Section)
-              .FirstOrDefault(product => product.Id == id).ToDTO();        
+              .FirstOrDefault(product => product.Id == id).ToDTO();
+
+        public SectionDTO GetSectionById(int id) => db.Sections
+            .Include(s => s.Products)
+            .FirstOrDefault(s => s.Id == id)
+            .ToDTO();
+
+        public BrandDTO GetBrandById(int id) => db.Brands
+            .Include(b => b.Products)
+            .FirstOrDefault(s => s.Id == id)
+            .ToDTO();
+
     }
 }
