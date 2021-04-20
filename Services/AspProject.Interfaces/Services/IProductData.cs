@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using AspProjectDomain;
+using AspProjectDomain.DTO;
 using AspProjectDomain.Entities;
 
 namespace AspProject.Interfaces.Services
 {
     public interface IProductData
     {
-        IEnumerable<Section> GetSections();
-        IEnumerable<Brand> GetBrands();
-        IEnumerable<Product> GetProducts(ProductFilter Filter = null);
-        Product GetProductById(int id);
+        IEnumerable<SectionDTO> GetSections();
+        IEnumerable<BrandDTO> GetBrands();
+        IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null);
+        ProductDTO GetProductById(int id);
     }
 }

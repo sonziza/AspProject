@@ -3,19 +3,21 @@ using System.Linq;
 using AspProject.DAL.Context;
 using AspProject.Interfaces.Services;
 using AspProjectDomain;
+using AspProjectDomain.DTO;
 using AspProjectDomain.Entities;
 using Microsoft.EntityFrameworkCore;
+using WebStore.Services.Mapping;
 
 namespace AspProject.Services.Services.InSQL
 {
     public record InSQLProductData(AspProjectDbContext db) : IProductData
     {
 
-        public IEnumerable<Section> GetSections() => db.Sections.Include(s => s.Products);
+        public IEnumerable<SectionDTO> GetSections() => db.Sections.Include(s => s.Products).ToDTO();
 
-        public IEnumerable<Brand> GetBrands() => db.Brands.Include(b => b.Products);
+        public IEnumerable<BrandDTO> GetBrands() => db.Brands.Include(b => b.Products).ToDTO();
 
-        public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
+        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter = null)
         {
             //подключаем дополнительные таблицы к Продуктам
             IQueryable<Product> query = db.Products
@@ -33,13 +35,13 @@ namespace AspProject.Services.Services.InSQL
                     query = query.Where(product => product.BrandId == brand_id);
             }
 
-            return query;
+            return query.AsEnumerable().ToDTO();
         }
 
-        public Product GetProductById(int id) =>
+        public ProductDTO GetProductById(int id) =>
             db.Products
               .Include(product => product.Brand)
               .Include(product => product.Section)
-              .FirstOrDefault(product => product.Id == id);        
+              .FirstOrDefault(product => product.Id == id).ToDTO();        
     }
 }
