@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Clients.Products
 {
-    class ProductsClient:BaseClient, IProductData
+    public class ProductsClient:BaseClient, IProductData
     {
         public ProductsClient(IConfiguration Configuration) : base(Configuration, WebAPI.Products) { }
 
