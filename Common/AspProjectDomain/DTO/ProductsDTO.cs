@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace AspProjectDomain.DTO
 {
-    class ProductsDTO
-    {
         public class BrandDTO
         {
             public int Id { get; set; }
@@ -33,5 +31,4 @@ namespace AspProjectDomain.DTO
             public BrandDTO Brand { get; set; }
             public SectionDTO Section { get; set; }
         }
-    }
 }
