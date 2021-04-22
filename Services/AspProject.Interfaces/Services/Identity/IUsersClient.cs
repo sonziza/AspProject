@@ -10,6 +10,7 @@ namespace AspProject.Interfaces.Services.Identity
 {
     public interface IUsersClient:
         IUserStore<User>,
+        IUserRoleStore<User>,
         IUserPasswordStore<User>,
         IUserEmailStore<User>,
         IUserPhoneNumberStore<User>,

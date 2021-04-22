@@ -16,6 +16,7 @@ using AspProject.Services.Services;
 using AspProject.Services.Services.InCookies;
 using AspProject.Services.Services.InSQL;
 using Clients.Employees;
+using Clients.Identity;
 using Clients.Products;
 using Clients.Values;
 
@@ -35,9 +36,12 @@ namespace AspProject
 
             //если юзер и роль по умолчанию
             //services.AddIdentity<IdentityUser, IdentityRole>();
+            
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<AspProjectDbContext>()
+                //подключаем коллекцию интерфейсов для системы Identity
+                .AddIdentityWebAPIClients()
                 .AddDefaultTokenProviders();
+
 
             //конфигурация системы Identity
             // - требование к паролю
