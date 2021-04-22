@@ -17,6 +17,7 @@ namespace AspProject.ServiceHosting.Controllers.Identity
 {
     [Route(WebAPI.Identity.Users)]
     [ApiController]
+    ///Контроллер работы с пользователем
     public class UsersController : ControllerBase
     {
         private readonly UserStore<User, Role, AspProjectDbContext> _userStore;
