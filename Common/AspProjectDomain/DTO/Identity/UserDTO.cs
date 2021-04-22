@@ -17,14 +17,14 @@ namespace AspProjectDomain.DTO.Identity
     /// когда юзер входит  в систему, система Identity хранит  об этом информацию
     /// 
     /// </summary>
-    public abstract class AddLoginDTO  : UserDTO 
+    public class AddLoginDTO  : UserDTO 
     {
         public  UserLoginInfo UserLoginInfo { get; set; }
     }
     /// <summary>
     /// Используется, чтобы хэш пароли не передавать откртыто, а внутри тела
     /// </summary>
-    public abstract class PasswordHashDTO : UserDTO
+    public class PasswordHashDTO : UserDTO
     {
         public  string Hash { get; set; }
     }
@@ -32,7 +32,7 @@ namespace AspProjectDomain.DTO.Identity
     /// <summary>
     /// Процесс блокировки пользователя
     /// </summary>
-    public abstract class SetLockDTO
+    public class SetLockOutDTO : UserDTO
     {
         public DateTimeOffset? LockOutEnd { get; set; }
     }
