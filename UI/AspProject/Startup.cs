@@ -1,22 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AspProject.DAL.Context;
-using Microsoft.EntityFrameworkCore;
 using AspProjectDomain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using AspProject.Interfaces.Services;
 using AspProject.Interfaces.TestAPI;
-using AspProject.Services.Data;
-using AspProject.Services.Services;
 using AspProject.Services.Services.InCookies;
 using AspProject.Services.Services.InSQL;
 using Clients.Employees;
 using Clients.Identity;
+using Clients.Orders;
 using Clients.Products;
 using Clients.Values;
 
@@ -30,13 +26,6 @@ namespace AspProject
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AspProjectDbContext>(options 
-                => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddTransient<AspProjectDBInitializer>();
-
-            //если юзер и роль по умолчанию
-            //services.AddIdentity<IdentityUser, IdentityRole>();
-            
             services.AddIdentity<User, Role>()
                 //подключаем коллекцию интерфейсов для системы Identity
                 .AddIdentityWebAPIClients()
@@ -80,13 +69,10 @@ namespace AspProject
 
             //Конфигурация прочих сервисов
             services.AddTransient<IEmployeesData, EmployeesClient>();
-            //services.AddTransient<IProductData, InMemoryProductData>();
             services.AddTransient<IProductData, ProductsClient>();
-            services.AddTransient<IOrderService, InSQLOrderService>();
+            services.AddTransient<IOrderService, OrdersClient>();
             services.AddScoped<IValuesClientService, ValuesClient>();
             services.AddTransient<ICartService, InCookiesCartService>();
-            //в дальнейшем так и будем делать - но пока для наглядности будем разбирать по частям этот паттерн
-            //services.AddMvc(); 
             //прописали сервис для работы с контроллерами
             //AddRazorRuntimeCompillation - расширение RuntimeCompillation - для динамического изменения данных
             services
@@ -95,10 +81,8 @@ namespace AspProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AspProjectDBInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            db.Initialize();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();    //включаем отладочную страницу в браузере
