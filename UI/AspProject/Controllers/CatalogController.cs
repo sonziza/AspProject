@@ -3,6 +3,7 @@ using AspProject.Interfaces.Services;
 using AspProjectDomain;
 using AspProjectDomain.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Services.Mapping;
 
 namespace AspProject.Controllers
 {
@@ -28,6 +29,7 @@ namespace AspProject.Controllers
                 BrandId = BrandId,
                 Products = products
                    .OrderBy(p => p.Order)
+                   .FromDTO()
                    .Select(p => new ProductViewModel
                    {
                        Id = p.Id,

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspProject.Interfaces.Services;
+using WebStore.Services.Mapping;
 
 namespace AspProject.Areas.Admin.Controllers
 {
@@ -17,13 +18,13 @@ namespace AspProject.Areas.Admin.Controllers
         public ProductController(IProductData ProductData) => _ProductData = ProductData;
         public IActionResult Index()
         {
-            return View(_ProductData.GetProducts());
+            return View(_ProductData.GetProducts().FromDTO());
         }
         public IActionResult Edit(int id)
         {
             var product = _ProductData.GetProductById(id);
             if (product is null) return NotFound();
-            return View(product); 
+            return View(product.FromDTO()); 
         }
             
             //=>
@@ -33,7 +34,7 @@ namespace AspProject.Areas.Admin.Controllers
 
         public IActionResult Delete(int id) =>
             _ProductData.GetProductById(id) is { } product
-                ? View(product)
+                ? View(product.FromDTO())
                 : NotFound();
     }
 }
