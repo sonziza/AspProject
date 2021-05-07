@@ -49,28 +49,31 @@ namespace AspProject.Controllers
             {
                 UserName = Model.UserName
             };
-
-            //объект user вносим в систему...
-            var registration_result = await _UserManager.CreateAsync(user, Model.Password);
-            if (registration_result.Succeeded)
+            //Журнал будет промаркирован надписью "Регистрация пользователя"
+            using (_Logger.BeginScope($"Регистрация пользователя {user.UserName}!!!"))
             {
-                _Logger.LogInformation("Пользователь {0} успешно зарегистрирован", Model.UserName);
+                //объект user вносим в систему...
+                var registration_result = await _UserManager.CreateAsync(user, Model.Password);
+                if (registration_result.Succeeded)
+                {
+                    _Logger.LogInformation("Пользователь {0} успешно зарегистрирован", Model.UserName);
 
-                await _UserManager.AddToRoleAsync(user, Role.Users);
-                _Logger.LogInformation("Пользователь {0} наделён ролью {1}", Model.UserName, Role.Users);
+                    await _UserManager.AddToRoleAsync(user, Role.Users);
+                    _Logger.LogInformation("Пользователь {0} наделён ролью {1}", Model.UserName, Role.Users);
 
-                await _SignInManager.SignInAsync(user, false);
-                //после регистрации делаем редирект в Home
-                return RedirectToAction("Index", "Home");
+                    await _SignInManager.SignInAsync(user, false);
+                    //после регистрации делаем редирект в Home
+                    return RedirectToAction("Index", "Home");
+                }
+
+                //в случае ошибки собираем инфо ошибок
+                _Logger.LogWarning("В процессе регистрации пользователя {0} возникли ошибки {1}",
+                    Model.UserName,
+                    string.Join(',', registration_result.Errors.Select(e => e.Description)));
+
+                foreach (var error in registration_result.Errors)
+                    ModelState.AddModelError("", error.Description);
             }
-
-            //в случае ошибки собираем инфо ошибок
-            _Logger.LogWarning("В процессе регистрации пользователя {0} возникли ошибки {1}",
-                Model.UserName,
-                string.Join(',', registration_result.Errors.Select(e => e.Description)));
-
-            foreach (var error in registration_result.Errors)
-                ModelState.AddModelError("", error.Description);
 
             return View(Model);
         }

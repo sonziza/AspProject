@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AspProject.DAL.Context;
@@ -12,6 +13,7 @@ using AspProjectDomain.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace AspProject.Services.Services.InSQL
 {
@@ -20,11 +22,13 @@ namespace AspProject.Services.Services.InSQL
     {
         private readonly AspProjectDbContext _db;
         private readonly UserManager<User> _UserManager;
+        private readonly ILogger<InSQLOrderService> _logger;
 
-        public InSQLOrderService(AspProjectDbContext db, UserManager<User> UserManager)
+        public InSQLOrderService(AspProjectDbContext db, UserManager<User> UserManager, ILogger<InSQLOrderService> logger)
         {
             _db = db;
             _UserManager = UserManager;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<OrderDTO>> GetUserOrders(string UserName) => (await _db.Orders
@@ -42,6 +46,10 @@ namespace AspProject.Services.Services.InSQL
 
         public async Task<OrderDTO> CreateOrder(string UserName, CreateOrderModel OrderModel)
         {
+            _logger.LogInformation("Создание нового заказа");
+
+            var timer = Stopwatch.StartNew();
+
             var user = await _UserManager.FindByNameAsync(UserName);
             if (user is null)
                 throw new InvalidOperationException($"Пользователь с именем {UserName} в БД отсутствует");
@@ -93,6 +101,10 @@ namespace AspProject.Services.Services.InSQL
             await _db.SaveChangesAsync();
 
             await transaction.CommitAsync();
+
+            _logger.LogInformation($"Заказ для {order.User} успешно оформлен на сумму" +
+                                   $" {order.Items.Sum(i=>i.TotalItemPrice)} за" +
+                                   $" {timer.Elapsed} сек");
 
             return order.ToDTO();
         }

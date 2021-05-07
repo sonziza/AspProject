@@ -48,9 +48,12 @@ namespace Clients.Employees
         public bool Delete(int id)
         {
             _logger.LogInformation($"Удаление сотрудника с id: {id}");
-            var result = Delete($"{Address}/{id}").IsSuccessStatusCode;
-            _logger.LogInformation("Удаление завершено");
-            return result;
+            using (_logger.BeginScope($"Удаление сотрудника с id: {id}"))
+            {
+                var result = Delete($"{Address}/{id}").IsSuccessStatusCode;
+                _logger.LogInformation("Удаление завершено");
+                return result;
+            }
         }
     }
 }
