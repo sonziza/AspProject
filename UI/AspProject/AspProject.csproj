@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="log4net.config" />
     <Content Remove="Views\Shared\Partial\_AccountMenu.cshtml" />
   </ItemGroup>
 
@@ -32,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="log4net.config" />
     <None Include="wwwroot\Admin\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\Admin\fonts\glyphicons-halflings-regular.svg" />
     <None Include="wwwroot\Admin\js\bootstrap.min.js" />
